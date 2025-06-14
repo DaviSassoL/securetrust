@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
   <title>SecureTrust | Apresentação</title>
-  <meta name="description" content="Apresentação interativa do projeto SecureTrust">
+  <meta name="description" content="Apresentação interativa do projeto SecureTrust"/>
   <!-- TailwindCSS -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Heroicons -->
+  <!-- Feather Icons -->
   <script src="https://unpkg.com/feather-icons"></script>
   <style>
     .slide-transition { transition: transform 0.6s ease, opacity 0.6s ease; }
@@ -20,7 +20,7 @@
       <div id="progress" class="h-full bg-indigo-500 w-0"></div>
     </div>
     <!-- Slide Container -->
-    <div id="slides" class="relative overflow-hidden rounded-lg shadow-lg bg-gradient-to-br from-gray-800 to-gray-700">
+    <div id="slides" class="relative overflow-hidden rounded-lg shadow-lg h-[60vh] bg-gradient-to-br from-gray-800 to-gray-700">
       <!-- Slides will be injected here -->
     </div>
     <!-- Controls -->
@@ -64,7 +64,8 @@
       slide.className = 'absolute inset-0 p-8 flex flex-col justify-center items-center text-center text-gray-100 slide-transition';
       slide.style.opacity = '0';
       slide.style.transform = 'translateX(100%)';
-      slide.classList.add(...data.bg.split(' '));
+      // Aplica classes de background
+      data.bg.split(' ').forEach(cls => slide.classList.add(cls));
 
       const h1 = document.createElement('h1');
       h1.className = 'text-4xl font-bold mb-4';
@@ -80,7 +81,7 @@
 
       if (data.list) {
         const ul = document.createElement('ul');
-        ul.className = 'list-disc mb-4 space-y-2 text-left';
+        ul.className = 'list-disc mb-4 space-y-2 text-left max-w-lg';
         data.list.forEach(item => {
           const li = document.createElement('li');
           li.textContent = item;
@@ -91,7 +92,7 @@
 
       if (data.text) {
         const p = document.createElement('p');
-        p.className = 'mb-4 leading-relaxed';
+        p.className = 'mb-4 leading-relaxed max-w-prose';
         p.textContent = data.text;
         slide.appendChild(p);
       }
@@ -120,8 +121,7 @@
           slide.style.zIndex = '0';
         }
       });
-      const progress = ((index + 1) / total) * 100;
-      progressBar.style.width = progress + '%';
+      progressBar.style.width = ((index + 1) / total) * 100 + '%';
     }
 
     slidesData.forEach(createSlide);
@@ -136,7 +136,6 @@
       showSlide(current);
     });
 
-    // Navegação por teclado
     document.addEventListener('keydown', e => {
       if (e.key === 'ArrowRight') document.getElementById('nextBtn').click();
       if (e.key === 'ArrowLeft') document.getElementById('prevBtn').click();
