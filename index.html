@@ -1,150 +1,135 @@
 // src/components/LandingPage.jsx
-// Landing page completa com documentação e storytelling para o projeto SecureTrust
+// Landing page de case para o projeto SecureTrust
 import React from 'react';
 import { motion } from 'framer-motion';
 import arquiteturaImg from '../assets/arquitetura-projeto-times.jpeg';
 
 export default function LandingPage() {
   return (
-    <div className="font-sans bg-gray-900 text-gray-100">
-      {/* Navbar fixa */}
-      <nav className="sticky top-0 bg-gray-800 bg-opacity-75 backdrop-blur-sm z-50">
-        <div className="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
-          <h1 className="text-2xl font-bold text-white">SecureTrust Project</h1>
-          <ul className="hidden md:flex space-x-6 text-gray-300">
-            {['Visão Geral','Arquitetura','Glue Job','Athena','Script','Governança','Conclusão'].map(section => (
-              <li key={section}>
-                <a href={`#${section.replace(/\s+/g,'').toLowerCase()}`} className="hover:text-blue-400 transition-colors">
-                  {section}
+    <div className="font-sans bg-gray-100 text-gray-900">
+      {/* Navbar */}
+      <nav className="sticky top-0 bg-white shadow-sm z-50">
+        <div className="max-w-6xl mx-auto flex justify-between items-center p-4">
+          <h1 className="text-xl font-bold">SecureTrust Case</h1>
+          <ul className="hidden md:flex space-x-6">
+            {['About','Pipeline','Arquitetura','Glue','Athena','Resultados','Contato'].map(item => (
+              <li key={item}>
+                <a href={`#${item.toLowerCase()}`} className="hover:text-blue-600 transition">
+                  {item}
                 </a>
               </li>
             ))}
+            <li>
+              <a href="#" className="text-gray-600 hover:text-blue-600">LinkedIn</a>
+            </li>
           </ul>
         </div>
       </nav>
 
-      {/* Seção: Visão Geral */}
-      <section id="visãogeral" className="py-20 px-6 bg-gradient-to-br from-gray-900 to-gray-800">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="max-w-4xl mx-auto text-center"
-        >
-          <h2 className="text-4xl font-bold mb-4 text-blue-300">Visão Geral</h2>
-          <p className="text-lg leading-relaxed">
-            O projeto SecureTrust entrega um pipeline de dados robusto para detecção de fraudes, utilizando AWS S3, AWS Glue e Athena. Ingestão de CSVs no S3, tratamento automatizado em Glue e consultas ágeis em Athena proporcionam governança, qualidade e rapidez nas análises.
+      {/* Hero */}
+      <header id="about" className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-20">
+        <div className="max-w-4xl mx-auto text-center px-4">
+          <h2 className="text-4xl font-extrabold mb-4">SecureTrust</h2>
+          <p className="mb-6 text-lg">Pipeline de Dados para Detecção de Fraudes Financeiras</p>
+          <a href="#contato" className="inline-block bg-white text-blue-600 font-semibold py-3 px-6 rounded-lg shadow hover:bg-gray-100 transition">
+            Saiba Mais
+          </a>
+        </div>
+      </header>
+
+      {/* Pipeline Overview */}
+      <section id="pipeline" className="py-16 px-4 bg-white">
+        <div className="max-w-5xl mx-auto">
+          <motion.h3 initial={{opacity:0,y:20}} animate={{opacity:1,y:0}} transition={{duration:0.6}} className="text-3xl font-bold mb-4 text-center">
+            Visão Geral do Pipeline
+          </motion.h3>
+          <p className="text-gray-700 mb-6 leading-relaxed">
+            O SecureTrust utiliza AWS S3, Glue (Python Shell) e Athena para ingestar, tratar e expor dados, garantindo qualidade, governança e rapidez nas análises de fraudes.
           </p>
-        </motion.div>
+        </div>
       </section>
 
-      {/* Seção: Arquitetura */}
-      <section id="arquitetura" className="py-20 px-6 bg-gray-900">
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2, duration: 0.8 }} className="max-w-5xl mx-auto">
-          <h2 className="text-4xl font-bold mb-6 text-cyan-300 text-center">Arquitetura do Pipeline</h2>
-          <img src={arquiteturaImg} alt="Arquitetura SecureTrust" className="w-full rounded-lg shadow-xl" />
-          <p className="mt-6 text-gray-300 text-center">
-            Estrutura no S3:
-          </p>
-          <ul className="mt-2 text-gray-300 space-y-1 text-center">
-            <li><code>s3://projeto-times-bucket/BRONZE/DADOS/</code> (raw data)</li>
-            <li><code>s3://projeto-times-bucket/PRATA/</code> (dados tratados)</li>
+      {/* Arquitetura */}
+      <section id="arquitetura" className="py-16 px-4 bg-gray-50">
+        <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-8 items-center">
+          <motion.img initial={{opacity:0,x:-50}} animate={{opacity:1,x:0}} transition={{duration:0.6}} src={arquiteturaImg} alt="Arquitetura" className="rounded-lg shadow-lg" />
+          <div>
+            <h4 className="text-2xl font-bold mb-4">Estrutura no S3</h4>
+            <ul className="list-disc list-inside text-gray-700 space-y-2">
+              <li><code>s3://projeto-times-bucket/BRONZE/DADOS/</code> Dados brutos</li>
+              <li><code>s3://projeto-times-bucket/PRATA/</code> Dados tratados</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      {/* Glue Job */}
+      <section id="glue" className="py-16 px-4 bg-white">
+        <div className="max-w-4xl mx-auto">
+          <h4 className="text-2xl font-bold mb-4">Glue Job</h4>
+          <ul className="list-decimal list-inside text-gray-700 space-y-3">
+            <li>Substituição de -1 por NaN em colunas específicas.</li>
+            <li>Remoção de duplicatas para unicidade.</li>
+            <li>Exclusão de coluna irrelevante.</li>
+            <li>Criação de coluna auxiliar <code>month_named</code>.</li>
           </ul>
-        </motion.div>
+        </div>
       </section>
 
-      {/* Seção: Glue Job */}
-      <section id="gluejob" className="py-20 px-6 bg-gradient-to-br from-gray-800 to-gray-700">
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4, duration: 0.8 }} className="max-w-4xl mx-auto">
-          <h2 className="text-4xl font-bold mb-4 text-indigo-300">Glue Job - Tratamento de Dados</h2>
-          <ul className="list-decimal ml-6 text-gray-200 space-y-3">
-            <li><strong>Substituição de -1 por NaN</strong> em colunas específicas para sinalizar dados faltantes.</li>
-            <li><strong>Remoção de duplicatas</strong> para garantir unicidade dos registros.</li>
-            <li><strong>Exclusão da coluna intended_balcon_amount</strong> por inconsistência.</li>
-            <li><strong>Criação de coluna month_named</strong> para converter números de meses em nomes em português.</li>
-          </ul>
-        </motion.div>
-      </section>
-
-      {/* Seção: Athena */}
-      <section id="athena" className="py-20 px-6 bg-gray-900">
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.6, duration: 0.8 }} className="max-w-4xl mx-auto">
-          <h2 className="text-4xl font-bold mb-4 text-yellow-300">Athena - Tabela de Consulta</h2>
-          <pre className="bg-gray-800 p-4 rounded text-sm overflow-auto">
+      {/* Athena */}
+      <section id="athena" className="py-16 px-4 bg-gray-50">
+        <div className="max-w-4xl mx-auto">
+          <h4 className="text-2xl font-bold mb-4">Athena</h4>
+          <pre className="bg-gray-200 p-4 rounded text-sm overflow-auto">
 CREATE DATABASE IF NOT EXISTS projeto_times_db;
-
-CREATE EXTERNAL TABLE IF NOT EXISTS projeto_times_db.base_tratada (
-  fraud_bool INT,
-  income DOUBLE,
-  /* ... outras colunas ... */
-  month_named STRING
-)
-ROW FORMAT SERDE 'org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe'
+CREATE EXTERNAL TABLE IF NOT EXISTS projeto_times_db.base_tratada (...)
 LOCATION 's3://projeto-times-bucket/PRATA/';
-
 SELECT * FROM projeto_times_db.base_tratada LIMIT 10;
           </pre>
-        </motion.div>
+        </div>
       </section>
 
-      {/* Seção: Script Completo */}
-      <section id="script" className="py-20 px-6 bg-gradient-to-br from-gray-800 to-gray-900">
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.8, duration: 0.8 }} className="max-w-4xl mx-auto">
-          <h2 className="text-4xl font-bold mb-4 text-pink-300">Script Completo do Glue Job</h2>
-          <pre className="bg-gray-800 p-4 rounded text-sm overflow-auto">
-import boto3
-import pandas as pd
-import numpy as np
-import io
-
-bucket = 'projeto-times-bucket'
-origem_prefix = 'BRONZE/DADOS/'
-destino_prefix = 'PRATA/'
-
-# Lista de colunas com -1
-colunas = [
-  'prev_address_months_count',
-  'current_address_months_count',
-  'device_distinct_emails_8w',
-  'session_length_in_minutes'
-]
-
-mapa_meses = { 0:'Janeiro',1:'Fevereiro',2:'Março', /* ... */ 11:'Dezembro' }
-
-s3 = boto3.client('s3')
-
-# ... resto do código ...
-          </pre>
-        </motion.div>
+      {/* Resultados */}
+      <section id="resultados" className="py-16 px-4 bg-white">
+        <div className="max-w-4xl mx-auto text-center">
+          <h4 className="text-2xl font-bold mb-6">Resultados</h4>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="p-6 bg-blue-50 rounded-lg">
+              <p className="text-3xl font-bold text-blue-600">343%</p>
+              <p className="mt-2 text-gray-700">Avg. ROAS (30 dias)</p>
+            </div>
+            <div className="p-6 bg-green-50 rounded-lg">
+              <p className="text-3xl font-bold text-green-600">+700%</p>
+              <p className="mt-2 text-gray-700">Crescimento de Leads</p>
+            </div>
+            <div className="p-6 bg-purple-50 rounded-lg">
+              <p className="text-3xl font-bold text-purple-600">70+</p>
+              <p className="mt-2 text-gray-700">Clientes Atendidos</p>
+            </div>
+          </div>
+        </div>
       </section>
 
-      {/* Seção: Governança */}
-      <section id="governanca" className="py-20 px-6 bg-gradient-to-br from-gray-800 to-gray-700">
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.0, duration: 0.8 }} className="max-w-4xl mx-auto">
-          <h2 className="text-4xl font-bold mb-4 text-green-300">Governança & Segurança</h2>
-          <ul className="list-disc ml-6 text-gray-200 space-y-2">
-            <li>Anonimização de dados para compliance.</li>
-            <li>Controle de acesso IAM em S3 e Athena.</li>
-            <li>Catálogo de metadados e logs de auditoria.</li>
-            <li>Rotinas de retenção e versionamento.</li>
-          </ul>
-        </motion.div>
-      </section>
-
-      {/* Seção: Conclusão */}
-      <section id="conclusao" className="py-20 px-6 bg-gradient-to-br from-gray-800 to-gray-700">
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.2, duration: 0.8 }} className="max-w-4xl mx-auto text-center">
-          <h2 className="text-4xl font-bold mb-4 text-blue-300">Conclusão & Próximos Passos</h2>
-          <p className="text-lg text-gray-200 leading-relaxed">
-            Entregamos uma arquitetura robusta, governada e escalável. Próximas fases: deploy em produção, dashboards interativos e modelos de ML avançados.
-          </p>
-        </motion.div>
+      {/* Contato */}
+      <section id="contato" className="py-16 px-4 bg-blue-600 text-white">
+        <div className="max-w-4xl mx-auto text-center">
+          <h4 className="text-2xl font-bold mb-4">Fale Conosco</h4>
+          <p className="mb-6">Estamos prontos para levar seu projeto ao próximo nível.</p>
+          <form className="space-y-4 max-w-md mx-auto">
+            <input type="text" placeholder="Nome" className="w-full px-4 py-2 rounded" />
+            <input type="email" placeholder="Email" className="w-full px-4 py-2 rounded" />
+            <textarea rows="4" placeholder="Mensagem" className="w-full px-4 py-2 rounded"></textarea>
+            <button type="submit" className="bg-white text-blue-600 font-semibold px-6 py-3 rounded hover:bg-gray-100 transition">
+              Enviar Mensagem
+            </button>
+          </form>
+        </div>
       </section>
 
       {/* Footer */}
-      <footer className="bg-gray-800 py-10">
-        <div className="max-w-6xl mx-auto px-6 text-center text-gray-400">
-          &copy; 2025 SecureTrust Team • Todos os direitos reservados
+      <footer className="bg-gray-800 py-6">
+        <div className="max-w-6xl mx-auto text-center text-sm text-gray-400">
+          &copy; 2025 SecureTrust • Todos os direitos reservados
         </div>
       </footer>
     </div>
