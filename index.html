@@ -1,186 +1,152 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SecureTrust – Engenharia de Dados para Detecção de Fraudes</title>
-  <link rel="icon" href="favicon.png" type="image/png" />
-  <meta name="description" content="Case SecureTrust: Pipeline de dados para detecção de fraudes financeiras com AWS, Python e Governança de Dados." />
-  <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    /* Custom Styles */
-    body { font-family: 'Poppins', sans-serif; }
-    .backdrop-blur { backdrop-filter: blur(10px); background: rgba(255,255,255,0.25); }
-    .slide { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
-    .slide.active { opacity: 1; transform: translateY(0); }
-    .progress-bar { height: 4px; background: #4299e1; transition: width 0.4s ease; }
-    .nav-dot { width: 12px; height: 12px; background: #cbd5e0; border-radius: 9999px; cursor: pointer; }
-    .nav-dot.active { background: #4299e1; }
-  </style>
-</head>
-<body class="bg-gray-50 text-gray-900">
-  <!-- Header -->
-  <header class="fixed top-0 w-full backdrop-blur shadow-md z-50">
-    <div class="max-w-5xl mx-auto flex items-center justify-between px-6 py-4">
-      <h1 class="text-xl font-bold text-blue-800">SecureTrust</h1>
-      <div id="slide-indicator" class="text-gray-700">Slide <span id="current">1</span> / <span id="total">15</span></div>
-    </div>
-    <div class="progress-bar" id="progress"></div>
-  </header>
-  
-  <!-- Main Slider -->
-  <main class="pt-24 pb-12">
-    <div class="max-w-4xl mx-auto relative overflow-hidden">
-      <!-- Slides Container -->
-      <div id="slides" class="relative h-auto">
-        <!-- Slide 1 -->
-        <section class="slide p-8 bg-white rounded-lg shadow-lg mb-8">
-          <h2 class="text-3xl font-bold mb-4 text-blue-800">SecureTrust – Engenharia de Dados para Detecção de Fraudes Financeiras</h2>
-          <p class="text-lg mb-2">Um pipeline com AWS, Python e Governança de Dados</p>
-          <blockquote class="italic border-l-4 border-blue-800 pl-4 text-gray-700">“Fraudes financeiras podem ocorrer em segundos. Nosso desafio: detectar padrões fraudulentos antes que causem prejuízo. Assim nasceu o SecureTrust.”</blockquote>
-        </section>
-        <!-- Slide 2 -->
-        <section class="slide p-8 bg-white rounded-lg shadow-lg mb-8">
-          <h2 class="text-2xl font-semibold mb-4">O Desafio: Fraudes em Transações Digitais</h2>
-          <ul class="list-disc list-inside space-y-2 mb-4">
-            <li>💸 Perdas financeiras recorrentes</li>
-            <li>🔐 Segurança comprometida</li>
-            <li>🧯 Resposta lenta e reativa</li>
-          </ul>
-          <p class="italic text-gray-700">“A fintech Times vinha sofrendo com perdas causadas por fraudes em abertura de contas e transações eletrônicas. Precisávamos de um processo automatizado, governado e inteligente para prever comportamentos fraudulentos.”</p>
-        </section>
-        <!-- Slide 3 -->
-        <section class="slide p-8 bg-white rounded-lg shadow-lg mb-8">
-          <h2 class="text-2xl font-semibold mb-4">Missão: Criar uma Solução de Dados Preditiva</h2>
-          <ul class="list-disc list-inside space-y-2 mb-4">
-            <li>Criar pipeline de ingestão e tratamento via AWS</li>
-            <li>Garantir qualidade, rastreabilidade e governança</li>
-            <li>Expor dados para BI e Machine Learning</li>
-            <li>Treinar modelo preditivo eficaz e interpretável</li>
-          </ul>
-          <p class="italic text-gray-700">“A proposta foi construir uma base sólida de dados e aplicar ciência de dados sobre ela para atacar o problema de frente.”</p>
-        </section>
-        <!-- Slide 4 -->
-        <section class="slide p-8 bg-white rounded-lg shadow-lg mb-8">
-          <h2 class="text-2xl font-semibold mb-4">Arquitetura do Pipeline – Da Ingestão ao Insight</h2>
-          <div class="mb-4">
-            <img src="Arquitetura_Projeto_times.jpeg" alt="Arquitetura do Pipeline" class="w-full object-cover rounded" loading="lazy">
+// src/components/LandingPage.jsx
+import React, { useEffect } from 'react';
+import { motion } from 'framer-motion';
+import arquiteturaImg from '../assets/arquitetura-projeto-times.jpeg';
+
+export default function LandingPage() {
+  useEffect(() => {
+    const faders = document.querySelectorAll('.fade-in');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('show');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    faders.forEach(f => observer.observe(f));
+  }, []);
+
+  return (
+    <div className="bg-white text-gray-800 font-sans">
+      {/* Navbar */}
+      <header className="shadow-md sticky top-0 bg-white z-50">
+        <div className="max-w-7xl mx-auto flex items-center justify-between p-4">
+          <h1 className="text-2xl font-bold text-blue-600">SecureTrust Case</h1>
+          <nav className="hidden md:flex space-x-6">
+            {['Sobre','Pipeline','Arquitetura','Glue','Athena','Script','Contato'].map(item => (
+              <a key={item} href={`#${item.toLowerCase()}`} className="hover:text-blue-600 transition">{item}</a>
+            ))}
+            <a href="https://linkedin.com" target="_blank" className="hover:text-blue-600">LinkedIn</a>
+          </nav>
+        </div>
+      </header>
+
+      <main>
+        {/* Hero */}
+        <section id="sobre" className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-24 px-6 fade-in">
+          <div className="max-w-4xl mx-auto text-center">
+            <motion.h2 initial={{opacity:0,y:20}} animate={{opacity:1,y:0}} transition={{duration:0.6}} className="text-4xl font-extrabold mb-4">
+              SecureTrust: Pipeline de Detecção de Fraudes
+            </motion.h2>
+            <p className="mb-6 text-lg">
+              Em um mundo onde fraudes financeiras podem acontecer em segundos, construímos um pipeline completo utilizando AWS S3, AWS Glue e Athena para detectar, tratar e analisar padrões de fraude em tempo real.
+            </p>
+            <a href="#pipeline" className="bg-white text-blue-600 px-6 py-3 rounded-full font-semibold shadow-lg hover:bg-gray-100 transition">
+              Veja o Processo
+            </a>
           </div>
-          <p class="italic text-gray-700">“Aqui está a espinha dorsal do projeto... bucket S3 → Glue → PRATA → Athena → modelagem e visualização.”</p>
         </section>
-        <!-- Slide 5 -->
-        <section class="slide p-8 bg-white rounded-lg shadow-lg mb-8">
-          <h2 class="text-2xl font-semibold mb-4">Camadas do Pipeline de Dados</h2>
-          <ul class="space-y-2 mb-4">
-            <li><strong>Bronze (RAW):</strong> Dados brutos no S3</li>
-            <li><strong>Silver (REF):</strong> Dados tratados via Glue (limpeza, enriquecimento)</li>
-            <li><strong>Gold (Serving Layer):</strong> Athena com consulta SQL</li>
-            <li><strong>Analytics:</strong> Python + Power BI</li>
-          </ul>
-          <p class="italic text-gray-700">“Dividimos as camadas conforme boas práticas... facilidade de manutenção.”</p>
-        </section>
-        <!-- Slide 6 -->
-        <section class="slide p-8 bg-white rounded-lg shadow-lg mb-8">
-          <h2 class="text-2xl font-semibold mb-4">Tratamento Automatizado de Dados com Glue</h2>
-          <ul class="list-disc list-inside space-y-2 mb-4">
-            <li>🔁 Substituição de -1 por NaN</li>
-            <li>🧹 Remoção de duplicatas</li>
-            <li>❌ Exclusão da coluna intended_balcon_amount</li>
-            <li>📆 Criação da coluna month_named</li>
-            <li>🔄 Processamento em batch via Python Shell</li>
-          </ul>
-          <p class="italic text-gray-700">“Automatizamos o processo com AWS Glue e pandas...”</p>
-        </section>
-        <!-- Slide 7 -->
-        <section class="slide p-8 bg-white rounded-lg shadow-lg mb-8">
-          <h2 class="text-2xl font-semibold mb-4">Governança de Dados Aplicada</h2>
-          <ul class="list-disc list-inside space-y-2 mb-4">
-            <li>✅ Dados sintéticos e anonimizados</li>
-            <li>🔐 IAM no S3 e Athena</li>
-            <li>📜 LGPD (simulado)</li>
-            <li>🧾 Metadados catalogados (32 colunas, 1M registros)</li>
-          </ul>
-          <p class="italic text-gray-700">“Garantimos rastreabilidade, segurança e compliance...”</p>
-        </section>
-        <!-- ... Continue slides 8 to 14 similar structure ... -->
-        <!-- Slide 15 -->
-        <section class="slide p-8 bg-white rounded-lg shadow-lg mb-8">
-          <h2 class="text-3xl font-bold mb-4 text-blue-800">Obrigado!</h2>
-          <p class="text-lg mb-2">Equipe SecureTrust</p>
-          <p class="text-gray-700">Contato: <a href="mailto:contato@securetrust.com.br" class="text-blue-600 underline">contato@securetrust.com.br</a></p>
-          <p class="text-gray-500 mt-4">(Abra para perguntas e feedback)</p>
-        </section>
-      </div>
 
-      <!-- Navigation Buttons -->
-      <button id="prevBtn" class="absolute left-0 top-1/2 transform -translate-y-1/2 p-3 bg-white rounded-full shadow-lg hover:bg-gray-100 focus:outline-none">
-        &larr;
-      </button>
-      <button id="nextBtn" class="absolute right-0 top-1/2 transform -translate-y-1/2 p-3 bg-white rounded-full shadow-lg hover:bg-gray-100 focus:outline-none">
-        &rarr;
-      </button>
-      <!-- Dots -->
-      <div class="flex justify-center space-x-2 mt-4">
-        <!-- dots will be injected -->
-      </div>
+        {/* Pipeline Overview */}
+        <section id="pipeline" className="py-20 px-6 fade-in">
+          <div className="max-w-5xl mx-auto">
+            <h3 className="text-3xl font-bold text-center mb-4">Visão Geral do Pipeline</h3>
+            <p className="text-gray-700 leading-relaxed">
+              1️⃣ Ingestão: arquivos CSV chegam ao bucket <code>BRONZE/DADOS</code> no S3.<br/>
+              2️⃣ Tratamento: AWS Glue (Python Shell) substitui valores inválidos, remove duplicatas e enriquece dados.<br/>
+              3️⃣ Exposição: camada <code>PRATA</code> no S3 e tabelas externas no Athena para consultas SQL rápidas.<br/>
+              4️⃣ Análise & Relatórios: resultados prontos para Machine Learning e dashboards.
+            </p>
+          </div>
+        </section>
+
+        {/* Bucket Structure */}
+        <section id="arquitetura" className="py-20 px-6 bg-gray-50 fade-in">
+          <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-8 items-center">
+            <img src={arquiteturaImg} alt="Arquitetura do Pipeline" className="rounded-lg shadow-lg" />
+            <div>
+              <h4 className="text-2xl font-bold mb-4">Estrutura no S3</h4>
+              <ul className="list-disc list-inside text-gray-700 space-y-2">
+                <li><strong>BRONZE/DADOS:</strong> dados brutos originais</li>
+                <li><strong>PRATA:</strong> dados tratados prontos para análise</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        {/* Glue Job Details */}
+        <section id="glue" className="py-20 px-6 fade-in">
+          <div className="max-w-4xl mx-auto">
+            <h4 className="text-2xl font-bold mb-4">Glue Job – Tratamento de Dados</h4>
+            <ol className="list-decimal list-inside space-y-3 text-gray-700">
+              <li><strong>Substituição de -1 por NaN</strong> em colunas críticas.</li>
+              <li><strong>Remoção de duplicatas</strong> para garantir unicidade.</li>
+              <li><strong>Exclusão de coluna irrelevante</strong> (<code>intended_balcon_amount</code>).</li>
+              <li><strong>Adição de <code>month_named</code></strong> para melhor legibilidade.</li>
+            </ol>
+          </div>
+        </section>
+
+        {/* Athena */}
+        <section id="athena" className="py-20 px-6 bg-gray-50 fade-in">
+          <div className="max-w-4xl mx-auto">
+            <h4 className="text-2xl font-bold mb-4">Athena – Consulta de Dados</h4>
+            <pre className="bg-gray-200 p-4 rounded overflow-auto text-sm">
+CREATE DATABASE IF NOT EXISTS projeto_times_db;
+CREATE EXTERNAL TABLE projeto_times_db.base_tratada (...)
+LOCATION 's3://projeto-times-bucket/PRATA/';
+SELECT * FROM projeto_times_db.base_tratada LIMIT 10;
+            </pre>
+            <p className="mt-4 text-gray-700">
+              Com essa configuração, análises SQL ficam disponíveis em segundos, facilitando insights e relatórios.
+            </p>
+          </div>
+        </section>
+
+        {/* Script Excerpt */}
+        <section id="script" className="py-20 px-6 fade-in">
+          <div className="max-w-4xl mx-auto">
+            <h4 className="text-2xl font-bold mb-4">Trecho do Script Python Shell</h4>
+            <pre className="bg-gray-200 p-4 rounded overflow-auto text-sm">
+import boto3
+import pandas as pd
+# Substituir -1, remover duplicatas e adicionar month_named
+df.replace(-1, np.nan).drop_duplicates()
+df['month_named'] = df['month'].map(mapa_meses)
+            </pre>
+          </div>
+        </section>
+
+        {/* Conclusion & Next Steps */}
+        <section id="conclusao" className="py-20 px-6 bg-gray-50 fade-in">
+          <div className="max-w-4xl mx-auto text-center">
+            <h4 className="text-2xl font-bold mb-4">Conclusão & Próximos Passos</h4>
+            <p className="text-gray-700 leading-relaxed">
+              Entregamos um pipeline escalável, governado e pronto para alimentar modelos de ML e dashboards BI. Próximas fases: deploy em produção, monitoramento em tempo real e dashboards interativos com alertas de fraude.
+            </p>
+          </div>
+        </section>
+
+        {/* Call to Action */}
+        <section id="contato" className="py-20 px-6 bg-blue-600 text-white fade-in">
+          <div className="max-w-4xl mx-auto text-center">
+            <h4 className="text-2xl font-bold mb-4">Vamos Transformar Seus Dados?</h4>
+            <p className="mb-6">Entre em contato e descubra como o SecureTrust pode reforçar a segurança e eficiência da sua operação.</p>
+            <form className="space-y-4 max-w-md mx-auto">
+              <input type="text" placeholder="Seu nome" className="w-full p-3 rounded" />
+              <input type="email" placeholder="Seu email" className="w-full p-3 rounded" />
+              <textarea rows="4" placeholder="Como podemos ajudar?" className="w-full p-3 rounded"></textarea>
+              <button type="submit" className="bg-white text-blue-600 px-6 py-3 rounded-full font-semibold hover:bg-gray-200 transition">Enviar Mensagem</button>
+            </form>
+          </div>
+        </section>
+      </main>
+
+      {/* Footer */}
+      <footer className="bg-gray-800 text-gray-400 text-center py-6">
+        <p>&copy; 2025 SecureTrust Team • Todos os direitos reservados</p>
+      </footer>
     </div>
-  </main>
-
-  <!-- Footer -->
-  <footer class="backdrop-blur py-6 text-center text-gray-700">
-    <p>© 2025 SecureTrust. Todos os direitos reservados.</p>
-  </footer>
-
-  <!-- Scripts -->
-  <script>
-    const slides = [...document.querySelectorAll('.slide')];
-    const total = slides.length;
-    let current = 0;
-    const prevBtn = document.getElementById('prevBtn');
-    const nextBtn = document.getElementById('nextBtn');
-    const indicator = document.getElementById('current');
-    const totalEl = document.getElementById('total');
-    const progress = document.getElementById('progress');
-    const dotsContainer = document.querySelector('main .flex');
-
-    totalEl.textContent = total;
-
-    // Create dots
-    slides.forEach((_, i) => {
-      const dot = document.createElement('div');
-      dot.classList.add('nav-dot');
-      if(i === 0) dot.classList.add('active');
-      dot.addEventListener('click', () => goTo(i));
-      dotsContainer.append(dot);
-    });
-    const dots = [...dotsContainer.children];
-
-    function update() {
-      slides.forEach(s => s.classList.remove('active'));
-      dots.forEach(d => d.classList.remove('active'));
-      slides[current].classList.add('active');
-      dots[current].classList.add('active');
-      indicator.textContent = current + 1;
-      progress.style.width = ((current + 1) / total * 100) + '%';
-    }
-
-    function goTo(index) {
-      current = index;
-      update();
-    }
-    function next() { goTo((current + 1) % total); }
-    function prev() { goTo((current - 1 + total) % total); }
-
-    prevBtn.addEventListener('click', prev);
-    nextBtn.addEventListener('click', next);
-    document.addEventListener('keydown', e => {
-      if(e.key === 'ArrowRight') next();
-      if(e.key === 'ArrowLeft') prev();
-    });
-
-    // Init
-    update();
-  </script>
-</body>
-</html>
+  );
+}
