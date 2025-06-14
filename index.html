@@ -1,136 +1,146 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-  <title>SecureTrust | Detecção de Fraudes</title>
-  <meta name="description" content="Apresentação interativa sobre pipeline de dados para detecção de fraudes financeiras."/>
-  <!-- TailwindCSS via CDN -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SecureTrust | Apresentação</title>
+  <meta name="description" content="Apresentação interativa do projeto SecureTrust">
+  <!-- TailwindCSS -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Heroicons -->
+  <script src="https://unpkg.com/feather-icons"></script>
   <style>
-    /* Faz transição suave de fundo e texto */
-    .slide {
-      transition: background 0.6s, color 0.6s;
-    }
+    .slide-transition { transition: transform 0.6s ease, opacity 0.6s ease; }
   </style>
 </head>
-<body class="bg-black text-white flex items-center justify-center min-h-screen p-4">
-  <div id="presentation" class="w-full max-w-3xl">
-    <!-- Slide container -->
-    <div id="slide" class="slide rounded-lg shadow-xl p-8 text-center">
-      <h1 id="title" class="text-4xl font-bold mb-4"></h1>
-      <h2 id="subtitle" class="text-2xl font-semibold text-purple-300 mb-6"></h2>
-      <p id="desc" class="mb-6 leading-relaxed"></p>
-      <img id="img" src="" alt="" class="mx-auto mb-6 rounded-lg shadow-lg max-h-64 hidden"/>
+<body class="bg-gray-900 text-gray-100 flex items-center justify-center min-h-screen p-6">
+  <div class="w-full max-w-4xl">
+    <!-- Progress Bar -->
+    <div class="h-1 bg-gray-700 rounded overflow-hidden mb-6">
+      <div id="progress" class="h-full bg-indigo-500 w-0"></div>
     </div>
-    <!-- Controles -->
+    <!-- Slide Container -->
+    <div id="slides" class="relative overflow-hidden rounded-lg shadow-lg bg-gradient-to-br from-gray-800 to-gray-700">
+      <!-- Slides will be injected here -->
+    </div>
+    <!-- Controls -->
     <div class="flex justify-between mt-4">
-      <button id="prev" class="px-6 py-2 border-2 border-white rounded-full hover:bg-white hover:text-black transition">Anterior</button>
-      <button id="next" class="px-6 py-2 border-2 border-white rounded-full hover:bg-white hover:text-black transition">Próximo</button>
+      <button id="prevBtn" class="flex items-center px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded text-gray-100">
+        <i data-feather="chevron-left" class="mr-2"></i>Anterior
+      </button>
+      <button id="nextBtn" class="flex items-center px-4 py-2 bg-indigo-600 hover:bg-indigo-500 rounded text-white">
+        Próximo<i data-feather="chevron-right" class="ml-2"></i>
+      </button>
     </div>
   </div>
 
   <script>
-    const slides = [
-      {
-        title: 'SecureTrust',
-        subtitle: 'Engenharia de Dados para Detecção de Fraudes Financeiras',
-        desc: 'Fraudes financeiras podem ocorrer em segundos. Nosso desafio: detectar padrões fraudulentos antes que causem prejuízo.',
-        bg: 'from-black via-gray-900 to-gray-800',
-        img: ''
-      },
-      {
-        title: 'O Problema',
-        subtitle: 'Fraudes em Transações Digitais',
-        desc: 'Perdas financeiras recorrentes, segurança comprometida e resposta lenta. Era preciso agir com dados e inteligência.',
-        bg: 'from-red-900 via-black to-gray-900',
-        img: ''
-      },
-      {
-        title: 'Objetivo do Projeto',
-        subtitle: 'Solução Preditiva com Governança',
-        desc: 'Criar pipeline de ingestão, tratamento, exposição e visualização de dados com foco em ML e BI.',
-        bg: 'from-purple-900 via-black to-gray-800',
-        img: ''
-      },
-      {
-        title: 'Arquitetura do Pipeline',
-        subtitle: 'Camadas Bronze, Silver, Gold',
-        desc: 'Visão geral das camadas de dados: RAW no S3, tratamento no Glue e consultas via Athena.',
-        bg: 'from-blue-900 via-black to-gray-900',
-        img: 'arquitetura-projeto-times.jpeg'
-      },
-      {
-        title: 'Modelagem com XGBoost',
-        subtitle: 'Machine Learning Supervisionado',
-        desc: 'Recall: 92%, AUC ROC: 0.97, Falsos Positivos: 5% (meta <3%) e precisão de 89%.',
-        bg: 'from-yellow-900 via-black to-gray-800',
-        img: ''
-      },
-      {
-        title: 'Dashboards Interativos',
-        subtitle: 'Power BI e Visualizações',
-        desc: 'KPIs dinâmicos, heatmaps, filtros por canal, dispositivo, região e perfil de cliente.',
-        bg: 'from-red-700 via-black to-gray-900',
-        img: ''
-      },
-      {
-        title: 'Conclusão',
-        subtitle: 'Prontos para Escalar',
-        desc: 'Pipeline robusto, governado e escalável. Próximos passos: nuvem, imputação e dashboards automáticos.',
-        bg: 'from-gray-800 via-black to-indigo-800',
-        img: ''
-      },
-      {
-        title: 'Próximos Passos & Agradecimentos',
-        subtitle: 'Obrigado!',
-        desc: 'Dúvidas? Entre em contato: Davi Sasso, Rodrigo Alex, Victor Barradas.',
-        bg: 'from-purple-800 via-black to-gray-900',
-        img: ''
-      }
+    feather.replace();
+    const slidesData = [
+      { title: 'SecureTrust', subtitle: 'Engenharia de Dados para Detecção de Fraudes Financeiras', text: '“Fraudes financeiras podem ocorrer em segundos. Nosso desafio: detectar padrões fraudulentos antes que causem prejuízo. Assim nasceu o SecureTrust.”', bg: 'bg-gradient-to-br from-black via-gray-900 to-gray-800' },
+      { title: 'O Desafio: Fraudes em Transações Digitais', list: ['💸 Perdas financeiras recorrentes', '🔐 Segurança comprometida', '🧯 Resposta lenta e reativa'], text: '“A fintech Times vinha sofrendo com perdas causadas por fraudes em abertura de contas e transações eletrônicas. Precisávamos de um processo automatizado, governado e inteligente para prever comportamentos fraudulentos.”', bg: 'bg-gradient-to-br from-red-900 via-black to-gray-900' },
+      { title: 'Missão: Criar uma Solução de Dados Preditiva', list: ['Criar pipeline de ingestão e tratamento via AWS', 'Garantir qualidade, rastreabilidade e governança', 'Expor dados para BI e Machine Learning', 'Treinar modelo preditivo eficaz e interpretável'], text: '“A proposta foi construir uma base sólida de dados e aplicar ciência de dados sobre ela para atacar o problema de frente.”', bg: 'bg-gradient-to-br from-purple-900 via-black to-gray-800' },
+      { title: 'Arquitetura do Pipeline – Da Ingestão ao Insight', image: 'arquitetura-projeto-times.jpeg', text: '“Aqui está a espinha dorsal do projeto. Começamos pela ingestão do dataset para o bucket S3, seguimos com o tratamento via AWS Glue, armazenamos os dados tratados na camada PRATA, expomos no Athena, e seguimos com a modelagem e visualização.”', bg: 'bg-gradient-to-br from-blue-900 via-black to-gray-900' },
+      { title: 'Camadas do Pipeline de Dados', list: ['Bronze (RAW): Dados brutos no S3', 'Silver (REF): Dados tratados via Glue (limpeza, enriquecimento)', 'Gold (Serving Layer): Athena com consulta SQL', 'Analytics: Python + Power BI'], text: '“Dividimos as camadas conforme boas práticas de arquitetura de dados, garantindo clareza no ciclo de vida e facilidade de manutenção.”', bg: 'bg-gradient-to-br from-yellow-900 via-black to-gray-800' },
+      { title: 'Tratamento Automatizado de Dados com Glue', list: ['🔁 Substituição de -1 por NaN', '🧹 Remoção de duplicatas', '❌ Exclusão da coluna intended_balcon_amount', '📆 Criação da coluna month_named', '🔄 Processamento em batch via script Python Shell'], text: '“Automatizamos o processo com AWS Glue e pandas, garantindo que os dados tratados fossem salvos e versionados com segurança.”', bg: 'bg-gradient-to-br from-red-700 via-black to-gray-900' },
+      { title: 'Governança de Dados Aplicada', list: ['✅ Dados sintéticos e anonimizados', '🔐 IAM no S3 e Athena', '📜 LGPD (simulado)', '🧾 Metadados catalogados (32 colunas, 1M registros)'], text: '“Nos preocupamos em garantir rastreabilidade, segurança e compliance desde o início.”', bg: 'bg-gradient-to-br from-gray-800 via-black to-indigo-800' },
+      { title: 'Dados Confiáveis, Resultados Precisos', list: ['💠 Validações de tipagem e preenchimento', '📈 Relatório de qualidade com função relatorio_qualidade(df)', '🔍 Pronto para imputação e modelagem'], text: '“Tratamos os dados pensando em reprodutibilidade e confiança analítica.”', bg: 'bg-gradient-to-br from-purple-800 via-black to-gray-900' },
+      { title: 'Explorando o Comportamento das Fraudes', list: ['Histogramas, correlações e outliers', 'Sazonalidade por mês e canal', 'Comportamentos anômalos em velocity, device_fraud_count, etc.'], text: '“A análise exploratória nos revelou padrões e possíveis variáveis explicativas relevantes para modelagem.”', bg: 'bg-gradient-to-br from-blue-800 via-black to-gray-700' },
+      { title: 'Machine Learning com XGBoost', list: ['📌 Target: fraud_bool', '🧠 Algoritmo: XGBoost', 'Recall: 92%', 'AUC ROC: 0.97', 'Falsos Positivos: 5% (meta: <3%)', 'Precision: 89%'], text: '“Nosso modelo demonstrou excelente desempenho na detecção de fraudes, com alta capacidade discriminativa e bom balanceamento entre recall e precisão.”', bg: 'bg-gradient-to-br from-yellow-800 via-black to-gray-700' },
+      { title: 'Transformando Dados em Decisão', list: ['Power BI interativo', 'KPIs: Taxa de fraude, tempo de resposta, precision', 'Heatmaps, filtros por canal, dispositivo, renda, etc.'], text: '“O resultado final se materializa em visualizações úteis e práticas para as áreas de risco e decisão.”', bg: 'bg-gradient-to-br from-red-600 via-black to-gray-700' },
+      { title: 'Pipeline Monitorado e Escalável', list: ['Glue + Athena com logs e métricas', 'Política de retenção: 12 meses (PRATA), 3 meses (RAW)', 'Versionamento de jobs, PRs e reavaliação semestral'], text: '“Além de técnica, a governança também é operacional e contínua.”', bg: 'bg-gradient-to-br from-gray-700 via-black to-indigo-700' },
+      { title: 'Impactos Concretos e Aprendizados', list: ['✔️ Pipeline completo e funcional', '✔️ Dados prontos para ML e BI', '✔️ Governança e segurança garantidas', '✔️ Modelo preditivo com alta performance'], text: '“A entrega consolidou todos os pilares de um pipeline moderno: ingestão, tratamento, modelagem, visualização e governança.”', bg: 'bg-gradient-to-br from-green-800 via-black to-gray-700' },
+      { title: 'O Futuro do SecureTrust', list: ['🤖 Imputação de dados ausentes', '☁️ Deploy em nuvem com menor latência', '🧠 Integração com pipelines reais', '📊 Painel de governança automatizado'], text: '', bg: 'bg-gradient-to-br from-indigo-800 via-black to-gray-700' },
+      { title: 'Obrigado!', text: '“Agradecemos a atenção! Estamos abertos para perguntas e feedback.”', bg: 'bg-gradient-to-br from-purple-900 via-black to-gray-800' }
     ];
 
     let current = 0;
-    const total = slides.length;
+    const slidesContainer = document.getElementById('slides');
+    const progressBar = document.getElementById('progress');
+    const total = slidesData.length;
 
-    const slideEl = document.getElementById('slide');
-    const titleEl = document.getElementById('title');
-    const subEl   = document.getElementById('subtitle');
-    const descEl  = document.getElementById('desc');
-    const imgEl   = document.getElementById('img');
-    const prevBtn = document.getElementById('prev');
-    const nextBtn = document.getElementById('next');
+    function createSlide(data) {
+      const slide = document.createElement('div');
+      slide.className = 'absolute inset-0 p-8 flex flex-col justify-center items-center text-center text-gray-100 slide-transition';
+      slide.style.opacity = '0';
+      slide.style.transform = 'translateX(100%)';
+      slide.classList.add(...data.bg.split(' '));
 
-    function renderSlide(idx) {
-      const s = slides[idx];
-      // Atualiza texto
-      titleEl.textContent    = s.title;
-      subEl.textContent      = s.subtitle;
-      descEl.textContent     = s.desc;
-      // Atualiza imagem
-      if (s.img) {
-        imgEl.src        = s.img;
-        imgEl.alt        = s.subtitle;
-        imgEl.classList.remove('hidden');
-      } else {
-        imgEl.classList.add('hidden');
+      const h1 = document.createElement('h1');
+      h1.className = 'text-4xl font-bold mb-4';
+      h1.textContent = data.title;
+      slide.appendChild(h1);
+
+      if (data.subtitle) {
+        const h2 = document.createElement('h2');
+        h2.className = 'text-2xl font-semibold text-indigo-300 mb-4';
+        h2.textContent = data.subtitle;
+        slide.appendChild(h2);
       }
-      // Atualiza fundo gradient
-      slideEl.className = `slide rounded-lg shadow-xl p-8 text-center bg-gradient-to-br ${s.bg}`;
+
+      if (data.list) {
+        const ul = document.createElement('ul');
+        ul.className = 'list-disc mb-4 space-y-2 text-left';
+        data.list.forEach(item => {
+          const li = document.createElement('li');
+          li.textContent = item;
+          ul.appendChild(li);
+        });
+        slide.appendChild(ul);
+      }
+
+      if (data.text) {
+        const p = document.createElement('p');
+        p.className = 'mb-4 leading-relaxed';
+        p.textContent = data.text;
+        slide.appendChild(p);
+      }
+
+      if (data.image) {
+        const img = document.createElement('img');
+        img.src = data.image;
+        img.alt = data.title;
+        img.className = 'rounded-lg shadow-lg max-h-64 mb-4';
+        slide.appendChild(img);
+      }
+
+      slidesContainer.appendChild(slide);
     }
 
-    prevBtn.addEventListener('click', () => {
+    function showSlide(index) {
+      const slides = slidesContainer.children;
+      [...slides].forEach((slide, i) => {
+        if (i === index) {
+          slide.style.opacity = '1';
+          slide.style.transform = 'translateX(0)';
+          slide.style.zIndex = '10';
+        } else {
+          slide.style.opacity = '0';
+          slide.style.transform = 'translateX(-100%)';
+          slide.style.zIndex = '0';
+        }
+      });
+      const progress = ((index + 1) / total) * 100;
+      progressBar.style.width = progress + '%';
+    }
+
+    slidesData.forEach(createSlide);
+    showSlide(current);
+
+    document.getElementById('prevBtn').addEventListener('click', () => {
       current = (current - 1 + total) % total;
-      renderSlide(current);
+      showSlide(current);
     });
-    nextBtn.addEventListener('click', () => {
+    document.getElementById('nextBtn').addEventListener('click', () => {
       current = (current + 1) % total;
-      renderSlide(current);
+      showSlide(current);
     });
 
-    // Renderiza o primeiro slide ao carregar
-    renderSlide(current);
+    // Navegação por teclado
+    document.addEventListener('keydown', e => {
+      if (e.key === 'ArrowRight') document.getElementById('nextBtn').click();
+      if (e.key === 'ArrowLeft') document.getElementById('prevBtn').click();
+    });
   </script>
 </body>
 </html>
-
